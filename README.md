@@ -11,7 +11,7 @@ Siamese Earthquake Transformer (S-EqT) is developed based on the Earthquake Tran
 ## Citation
 If you use the S-EqT codes in your research, please cite both:
 
-Zhuowei Xiao, Jian Wang*, Chang Liu, Juan Li, Liang Zhan, and Zhenxing Yao. (2021). Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array. Journal of Geophysics Research: Solid Earth.
+Zhuowei Xiao, Jian Wang*, Chang Liu, Juan Li, Liang Zhao, and Zhenxing Yao. (2021). Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array. Journal of Geophysics Research: Solid Earth.
 
 and
 
