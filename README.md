@@ -10,14 +10,21 @@ Siamese Earthquake Transformer (S-EqT) is developed based on the Earthquake Tran
 
 ## Citation
 If you use the S-EqT codes in your research, please cite both:
+
 Zhuowei Xiao, Jian Wang*, Chang Liu, Juan Li, Liang Zhan, and Zhenxing Yao. (2021). Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array. Journal of Geophysics Research: Solid Earth.
+
 and
+
 S. Mostafa Mousavi, William L Ellsworth, Weiqiang Zhu, Lindsay Y Chuang, and Gregory C Beroza. (2020). Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking. Nature Communications 11, 3952. https://doi.org/10.1038/s41467-020-17591-w.
 
 If you use the pipeline in the tutorial, please cite the following papers as well:
+
 REAL for linking seismic phases:
+
 Miao Zhang, William L Ellsworth, and Gregory C Beroza. (2019). Rapid Earthquake Association and Location. Seismological Research Letters, 90(6), 2276–2284. https://doi.org/10.1785/0220190052
+
 HypoInverse for locating earthquakes:
+
 Fred W Klein. (2002). Userʼs Guide to HYPOINVERSE-2000, a Fortran Program to Solve for Earthquake Locations and Magnitudes 4/2002 version. USGS, Open File Report 02-171 Version, 1, 123.
 
 ## Bug report
