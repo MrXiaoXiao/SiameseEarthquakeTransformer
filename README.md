@@ -1,6 +1,6 @@
 # SiameseEarthquakeTransformer
 
-## UNDER CONSTRUCTION. The code cleaning and the tutorial update will be finished before 05.08.2021.
+## **UNDER CONSTRUCTION.** The code cleaning and the tutorial update will be finished before 05.08.2021. Please check the update later.
 A tutorial and updated codes for research paper: ‘Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array.’
 
 ## Brief Introduction:

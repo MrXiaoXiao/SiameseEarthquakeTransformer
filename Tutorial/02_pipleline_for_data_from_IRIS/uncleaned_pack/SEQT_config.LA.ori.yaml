@@ -1,0 +1,47 @@
+# post processing params
+STACOORD: '/home/Public/SiameseEQTransformer/notebooks/JGR_paper_postprocess/SA_sta_seqt_use.dat'
+CSV2REAL:
+  data_folder_list: ['/mnt/BYEB/LA_JAN/LA_DATA/LA_2010_Jan_detections/']
+  ref_time_list: ['2020-08-01']
+  save_prefix: ['20200801/']
+  save_folder: '/home/Public/SiameseEQTransformer/notebooks/JGR_paper_postprocess/EQTRes/'
+  save_sta: '/home/Public/SiameseEQTransformer/notebooks/JGR_paper_postprocess/SA_sta_seqt_use.dat'
+
+# real params
+REALPARAMS:
+  year: ["\"2020\""]
+  mon: ["\"08\""]
+  day: ["\"01\""]
+  R: "\"0.3/100/0.05/5/0.01\""
+  G: "\"2.0/120/0.05/5\""
+  V: "\"6.3/3.4/2.0/1.5/0\""
+  S: "\"3/3/6/1/2.0/0/5.0/5.0\""
+  dir: "./EQTRes/"
+  station: "\"./SA_sta_seqt_use.dat\""
+  ttime: "\"./REAL_scripts/tt_db/ttdb.txt\""
+
+# VELEST params
+VELESTPARAMS:
+  merge_dir_key: "./REAL_Res"
+  merge_together_key: "./VELEST_scripts/t_merge.txt"
+  merge_target_key: "{}_phase_sel.txt"
+  format_station_key: "./SA_sta_seqt_use.dat"
+  olat: "34.4000"
+  olon: "-108.4000"
+  ittmax: "9"
+  inv_ratio: "3"
+  dmax: "500"
+  # Trans VELEST to dict
+  USE_VELEST_TIME: 1
+
+# trans REAL results 2 LOTOS
+LOTOS:
+  STAT_FT: './LOTOS/stat_ft.dat'
+  MAP_DICT: './LOTOS/map_dict.npy'
+  RAYS: './LOTOS/rays.dat'
+  PROJECT_NAME: KLTG2020
+  MODEL_NAME: MODEL_01
+  USE_VELEST_TIME: 0
+  AREA_RES: [91.50,91.90,42.475,42.875,30]
+  RAY_MAX: 250
+ 
