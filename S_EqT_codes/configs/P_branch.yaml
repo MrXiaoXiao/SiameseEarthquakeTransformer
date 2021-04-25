@@ -1,0 +1,66 @@
+# Params for training
+Model:
+  EqT_model_path: ./EqT_model.h5
+  Encoded_layer_name: batch_normalization_17
+  Batch_size: 1
+  Encode_search_length: 47
+  Encode_channel: 16
+  # True 1 False 0
+  Sepearte: 0
+  # True 1 False 0
+  LoadPretrainedModel: 1
+  PretrainModelPath: /home/Public/SiameseEQTransformer/SiameseEQT/models/P_branch.hdf5
+  # available type (int): 
+  # NaiveCorr     -- 0
+  # Regression    -- 1
+  # Segmentation  -- 2
+  Siamese_Type: 1
+  
+  # P-wave 0 
+  # S-wave 1
+  PickType: 0 
+  
+  P_width: 19
+  S_width: 19
+  Coda_width: 19
+  # True 1 False 0
+  Cascade: 1
+  P_casacde_1: 23
+  P_cascade_2: 11
+  RSRN_Encoded_list: ['conv1d_32','conv1d_33','conv1d_34','conv1d_35','conv1d_36','conv1d_37','conv1d_38']
+  RSRN_Encoded_lengths: [94,188,376,750,1500,3000,6000]
+  RSRN_Encoded_channels: [64,64,32,32,16,16,8]
+  Sideoutput_Upscales: [64,32,16,8,4,2,1]
+  Sideoutput_Croppings: [8,8,8,0,0,0,0]
+  Residual_Upscales: [2,2,2,2,2,2,0]
+  Residual_Croppings: [0,0,0,1,0,0,0]
+  Loss_weights: [0.001,0.005,0.01,0.05,0.25,0.5,1.0,0.001]
+  Concate_with_ori: 1
+  MODEL_RSRN: 1
+  # 0 No Noise 
+  # 1 Uniform
+  # 2 Real Noise
+  # 3 gaussian
+  Noise_type: 1
+  Noise_csv_path: /run/media/root/Baiyun_Xiao/STEAD/chunk1/chunk1.csv
+  Noise_data_path: /run/media/root/Baiyun_Xiao/STEAD/chunk1/chunk1.hdf5
+  Noise_min_rate: 0.0
+  Noise_max_rate: 0.8
+
+  Encoder_concate: 1
+  Encoder_concate_list: ['batch_normalization_17','batch_normalization_16','batch_normalization_15','batch_normalization_14','batch_normalization_12','batch_normalization_10','batch_normalization_8','batch_normalization_6','batch_normalization_4','batch_normalization_2']
+  Encoder_concate_lengths: [47,47,47,47,47,47,47,47,47,47]
+  Encoder_concate_channels: [16,16,16,64,64,64,64,64,64,64]
+
+Train:
+  STEAD_path: /run/media/root/Baiyun_Xiao/STEAD/
+  Train_dict_path: train_dict.npy
+  e_sort_path: e_sort/
+
+  Model_save_path: ./models/P_Add_Noise_1023_UNI_NEW_
+  Model_save_interval: 5000
+  Train_print_interval: 50
+  Total_Steps: 200001
+
+Test:
+  File_path: ./H5py

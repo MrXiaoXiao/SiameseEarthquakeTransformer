@@ -8,7 +8,6 @@ from keras.layers import Input, InputLayer, Lambda, Dense, Flatten, Conv2D, Batc
 from keras.layers import UpSampling2D, Cropping2D, Conv2DTranspose, Concatenate, Activation 
 import tensorflow as tf
 import matplotlib
-matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -19,8 +18,8 @@ import time
 from os import listdir
 import os
 import shutil
-from src.EqT_utils import DataGeneratorPrediction, picker, generate_arrays_from_file
-from src.EqT_utils import f1, SeqSelfAttention, FeedForward, LayerNormalization
+from src.EqT_libs.EqT_utils import DataGeneratorPrediction, picker, generate_arrays_from_file
+from src.EqT_libs.EqT_utils import f1, SeqSelfAttention, FeedForward, LayerNormalization
 from tqdm import tqdm
 from datetime import datetime, timedelta
 import multiprocessing
@@ -64,6 +63,46 @@ def feature_map_corr_func(inputs):
 def feature_map_corr_layer(name='feature_map_corr',output_shape=(47,1,16)):
     return Lambda(feature_map_corr_func, output_shape=output_shape, name=name)
 
+def build_corr_model(cfgs, EqT_model):
+    """
+    build cross correlation model
+    """
+    encoded_list = cfgs['Model']['RSRN_Encoded_list']
+
+    output_dict = dict()
+    output_list = []
+
+    for encoded_name in encoded_list:
+        output_dict[encoded_name] =  EqT_model.get_layer(encoded_name).output
+        output_list.append(output_dict[encoded_name])
+
+    model_encoded = Model(inputs = EqT_model.input, outputs = output_list)
+
+    # S-EqT-RSRN
+    # length list
+    encoded_lengths = cfgs['Model']['RSRN_Encoded_lengths']
+    encoded_channels = cfgs['Model']['RSRN_Encoded_channels']
+
+    # define inputs
+    S_EqT_Input_dict = dict()
+    S_EqT_Input_list = []
+    for idx, encoded_name in enumerate(encoded_list):
+        S_EqT_Input_dict[encoded_name+'_Template'] = Input(shape=[None,1,int(encoded_channels[idx])],name=encoded_name+'_Template')
+        S_EqT_Input_dict[encoded_name+'_Search'] = Input(shape=[int(encoded_lengths[idx]),1,int(encoded_channels[idx])],name=encoded_name+'_Search')
+        S_EqT_Input_list.append(S_EqT_Input_dict[encoded_name+'_Template'])
+        S_EqT_Input_list.append(S_EqT_Input_dict[encoded_name+'_Search'])
+
+    # define correlation results
+    concate_with_ori = int(cfgs['Model']['Concate_with_ori'])
+    feature_corr_dict = dict()
+
+    S_EqT_Output_list = []
+    for idx, encoded_name in enumerate(encoded_list):
+        feature_corr_dict[encoded_name+'_corr']  = feature_map_corr_layer(encoded_name+'_corr',(int(encoded_lengths[idx]),1,int(encoded_channels[idx])))([S_EqT_Input_dict[encoded_name+'_Template'],S_EqT_Input_dict[encoded_name+'_Search'] ])
+        S_EqT_Output_list.append(feature_corr_dict[encoded_name+'_corr'])
+    model_corr = Model(inputs = S_EqT_Input_list, outputs = S_EqT_Output_list)
+
+    return model_corr
 
 def S_EqT_Concate_RSRN_Model(cfgs):
     """
