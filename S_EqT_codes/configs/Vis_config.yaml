@@ -1,0 +1,13 @@
+# Vis config
+Model:
+  EqT_model_path: /home/Public/SiameseEQTransformer/SiameseEQT/EqT_model.h5
+  Encoded_layer_name: batch_normalization_17
+  RSRN_Encoded_list: ['batch_normalization_17','batch_normalization_16','batch_normalization_15','batch_normalization_14','batch_normalization_12','batch_normalization_10','batch_normalization_8','batch_normalization_6','batch_normalization_4','batch_normalization_2','conv1d_7','conv1d_6','conv1d_5','conv1d_4','conv1d_3','conv1d_2','conv1d_1','lstm_5','conv1d_39','conv1d_40','conv1d_41','conv1d_42','conv1d_43','conv1d_44','conv1d_45','conv1d_32','conv1d_33','conv1d_34','conv1d_35','conv1d_36','conv1d_37','conv1d_38']
+  RSRN_Encoded_lengths:  [47,47,47,47,47,47,47,47,47,47,94,188,375,750,1500,3000,6000,47,94,188,376,750,1500,3000,6000,94,188,376,750,1500,3000,6000]
+  RSRN_Encoded_channels: [16,16,16,64,64,64,64,64,64,64,64,64,32,32,16,16,8,16,64,64,32,32,16,16,8,64,64,32,32,16,16,8]
+  Sideoutput_Upscales: [128,128,128,32,8,2]
+  Sideoutput_Croppings: [8,8,8,8,0,0]
+  Residual_Upscales: [1,1,4,4,4,0]
+  Residual_Croppings: [0,0,0,0,1,0]
+  Concate_with_ori: 1
+  MODEL_RSRN: 1
