@@ -1,0 +1,32 @@
+DataDownload:
+  save_path: './example_data/'
+  start_time: '2020-08-01 00:00:00.00'
+  end_time: '2020-08-02 00:00:00.00'
+  channel_list: ["HH[ZNE]", "HH[Z21]", "BH[ZNE]","BH[Z21]","EH[ZNE]","EH[Z21]","SH[Z21]","SH[ZNE]","HN[ZNE]", "HN[Z23]"]
+  exclude_network: ['SY']
+  minlat: 34.0
+  maxlat: 34.8
+  minlon: -118.8
+  maxlon: -118.0  
+  client_list: ["SCEDC","IRIS","NCEDC"]
+  sta_json_path: 'station_list.json'
+  data_save_path: './example_data'
+
+EqT:
+  mseed_dir: 'example_data'
+  sta_json_path: 'station_list.json'
+  overlap: 0.3
+  n_processor: 8
+  det_res: detection_results
+  model_path: '../../models/EqT/EqT_model.h5'
+  number_of_sampling: 5
+  EQ_threshold: 0.3
+  P_threshold: 0.1
+  S_threshold: 0.1
+
+S_EqT:
+  P_threshold: 0.1
+  P_skip_threshold: 0.5 
+  S_threshold: 0.1
+  S_skip_threshold: 0.5
+  

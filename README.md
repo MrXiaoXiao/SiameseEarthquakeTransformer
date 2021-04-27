@@ -1,21 +1,26 @@
 # SiameseEarthquakeTransformer
 
-## **UNDER CONSTRUCTION.** The code cleaning and the tutorial update will be finished before 05.08.2021. Please check the update later.
+## **UNDER CONSTRUCTION.** The code cleaning and the tutorial update will be finished before 05.08.2021. Have to enjoy the International Workers' Day holiday : ) Please check the update later.
 A tutorial and updated codes for research paper: ‘Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array.’
 
 ## Brief Introduction:
 Siamese Earthquake Transformer (S-EqT) is developed based on the Earthquake Transformer (EqT) (Mousavi et al., 2020, Nature Communications) (https://github.com/smousavi05/EQTransformer), which is an excellent method and a strong baseline for earthquake detection and phase picking. The primary purpose of the S-EqT model is to reduce the false-negative rate of the EqT model by leveraging latent information in the pre-trained EqT model and retrieving previously missed phase picks in low SNR seismograms based on their similarities with other confident phase picks in high-dimensional spaces.
 
 ## Installation
-
+"""Bash
+conda create -n seqt
+conda activate seqt
+conda install python=3.6 tensorflow-gpu=1.14 keras-gpu=2.3.1 h5py=2.10 pyyaml cudatoolkit cudnn matplotlib pandas
+conda install -c conda-forge obspy
+"""
 ## Citation
 If you use the S-EqT codes in your research, please cite both:
 
-Zhuowei Xiao, Jian Wang*, Chang Liu, Juan Li, Liang Zhao, and Zhenxing Yao. (2021). Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array. Journal of Geophysics Research: Solid Earth.
+Zhuowei Xiao, Jian Wang*, Chang Liu, Juan Li, Liang Zhao, and Zhenxing Yao. (2021). Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array. Journal of Geophysics Research: Solid Earth. https://doi.org/10.1029/2020JB021444
 
 and
 
-S. Mostafa Mousavi, William L Ellsworth, Weiqiang Zhu, Lindsay Y Chuang, and Gregory C Beroza. (2020). Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking. Nature Communications 11, 3952. https://doi.org/10.1038/s41467-020-17591-w.
+S. Mostafa Mousavi, William L Ellsworth, Weiqiang Zhu, Lindsay Y Chuang, and Gregory C Beroza. (2020). Earthquake transformer—an attentive deep-learning model for simultaneous earthquake detection and phase picking. Nature Communications 11, 3952. https://doi.org/10.1038/s41467-020-17591-w
 
 If you use the pipeline in the tutorial, please cite the following papers as well:
 
