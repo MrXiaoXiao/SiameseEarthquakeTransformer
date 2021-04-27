@@ -7,12 +7,12 @@ A tutorial and updated codes for research paper: ‘Siamese Earthquake Transform
 Siamese Earthquake Transformer (S-EqT) is developed based on the Earthquake Transformer (EqT) (Mousavi et al., 2020, Nature Communications) (https://github.com/smousavi05/EQTransformer), which is an excellent method and a strong baseline for earthquake detection and phase picking. The primary purpose of the S-EqT model is to reduce the false-negative rate of the EqT model by leveraging latent information in the pre-trained EqT model and retrieving previously missed phase picks in low SNR seismograms based on their similarities with other confident phase picks in high-dimensional spaces.
 
 ## Installation
-"""Bash
+```Bash
 conda create -n seqt
 conda activate seqt
 conda install python=3.6 tensorflow-gpu=1.14 keras-gpu=2.3.1 h5py=2.10 pyyaml cudatoolkit cudnn matplotlib pandas
 conda install -c conda-forge obspy
-"""
+```
 ## Citation
 If you use the S-EqT codes in your research, please cite both:
 
