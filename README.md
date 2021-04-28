@@ -10,7 +10,7 @@ Siamese Earthquake Transformer (S-EqT) is developed based on the Earthquake Tran
 ```Bash
 conda create -n seqt
 conda activate seqt
-conda install python=3.6 tensorflow-gpu=1.14 keras-gpu=2.3.1 h5py=2.10 pyyaml cudatoolkit cudnn matplotlib pandas
+conda install python=3.6 tensorflow-gpu=1.14 keras-gpu=2.3.1 h5py=2.10 pyyaml cudatoolkit cudnn matplotlib pandas tqdm
 conda install -c conda-forge obspy
 ```
 ## Citation

@@ -2,15 +2,14 @@ import warnings
 warnings.filterwarnings("ignore")
 from tensorflow.python.util import deprecation
 deprecation._PRINT_DEPRECATION_WARNINGS = False
-
+import sys
 sys.path.append('../../S_EqT_codes/src/EqT_libs')
 from hdf5_maker import preprocessor
 from predictor import predictor
 from EqT_utils import DataGeneratorPrediction, picker, generate_arrays_from_file
 from EqT_utils import f1, SeqSelfAttention, FeedForward, LayerNormalization
 from keras.models import load_model
-from pathlib import Path
-from glob import glob
+from keras.optimizers import Adam
 import yaml
 import os
 from multiprocessing import  Pool
@@ -35,7 +34,7 @@ if __name__ == '__main__':
     cfgs = yaml.load(open(args.config_file,'r'),Loader=yaml.SafeLoader)
     
     # convert mseed data to hdf5
-    convert(cfgs)
+    #convert(cfgs)
     
     # earthquake detection and phase picking by the EqT model
     os.environ['CUDA_VISIBLE_DEVICES']  = cfgs['EqT']['gpuid']
@@ -54,7 +53,7 @@ if __name__ == '__main__':
                   metrics = [f1])
     print('Done Loading Model')
     
-    predictor(input_dir= cfgs['EqT']['mseed_dir'] + '_processed_hdfs/'.format(sta_key),
+    predictor(input_dir= cfgs['EqT']['mseed_dir'] + '_processed_hdfs/',
             input_model=model,
             output_dir=cfgs['EqT']['det_res'],
             estimate_uncertainty=False, 

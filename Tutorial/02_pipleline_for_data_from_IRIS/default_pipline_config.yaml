@@ -19,6 +19,7 @@ EqT:
   n_processor: 8
   det_res: detection_results
   model_path: '../../models/EqT/EqT_model.h5'
+  gpuid: '0'
   number_of_sampling: 5
   EQ_threshold: 0.3
   P_threshold: 0.1
@@ -29,4 +30,3 @@ S_EqT:
   P_skip_threshold: 0.5 
   S_threshold: 0.1
   S_skip_threshold: 0.5
-  
