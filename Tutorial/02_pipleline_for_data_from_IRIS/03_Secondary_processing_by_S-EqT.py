@@ -1,4 +1,5 @@
-# To be cleaned !!!
+# Will be cleaned and updated after 05.03.2021
+
 import numpy as np
 from pathlib import Path
 import pandas as pd
@@ -18,11 +19,14 @@ from src.misc import get_train_list
 import keras.backend
 import yaml
 from random import shuffle
-
-
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
+# Simplified steps:
+# 01 load config file
+# 02 search all picks (aggressive mode or lasy mode)
+# 03 save results
+
+"""
 def get_search_station_list(station, station_list, max_distance):
     search_list = list()
     for t_sta in station_list:

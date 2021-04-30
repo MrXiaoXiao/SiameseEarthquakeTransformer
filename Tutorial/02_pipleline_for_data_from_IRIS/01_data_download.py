@@ -4,8 +4,8 @@ Download data from IRIS using obspy and EqT libraries
 import sys
 sys.path.append('../../S_EqT_codes/src/EqT_libs')
 from downloader import makeStationList, downloadMseeds
-import argparse
 import yaml
+import argparse
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='01_download_data_from_IRIS')
