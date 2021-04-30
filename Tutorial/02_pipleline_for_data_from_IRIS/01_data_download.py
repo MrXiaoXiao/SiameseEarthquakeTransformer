@@ -6,6 +6,8 @@ sys.path.append('../../S_EqT_codes/src/EqT_libs')
 from downloader import makeStationList, downloadMseeds
 import yaml
 import argparse
+import os
+from pathlib import Path
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='01_download_data_from_IRIS')
@@ -26,7 +28,7 @@ if __name__ == '__main__':
     CLIENTLIST=cfgs['DataDownload']['client_list']
     STAJSONPATH=cfgs['DataDownload']['sta_json_path']
     DATASAVEPATH=cfgs['DataDownload']['data_save_path']
-
+    
     makeStationList(client_list=["IRIS"],  
                     min_lat=MINLAT,
                     max_lat=MAXLAT,
@@ -50,3 +52,11 @@ if __name__ == '__main__':
             chunk_size=1,
             channel_list=CHANLIST,
             n_processor=2)
+    
+    # remove empty folders
+    mseed_path = Path(DATASAVEPATH)
+    for sub_path in mseed_path.glob('*'):
+        if len(list(sub_path.glob('*'))) == 0:
+            print('Remove Empty Folder: {}'.format(str(sub_path)))
+            os.rmdir(str(sub_path))
+        

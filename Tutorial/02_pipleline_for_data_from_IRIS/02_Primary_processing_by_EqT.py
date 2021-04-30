@@ -34,7 +34,7 @@ if __name__ == '__main__':
     cfgs = yaml.load(open(args.config_file,'r'),Loader=yaml.SafeLoader)
     
     # convert mseed data to hdf5
-    #convert(cfgs)
+    convert(cfgs)
     
     # earthquake detection and phase picking by the EqT model
     os.environ['CUDA_VISIBLE_DEVICES']  = cfgs['EqT']['gpuid']

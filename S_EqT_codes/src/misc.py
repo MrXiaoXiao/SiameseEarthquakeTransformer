@@ -4,6 +4,102 @@ import h5py
 import matplotlib.pyplot as plt
 from random import shuffle
 
+def xml2REAL_sta(cfgs):
+    sta_inv = obspy.read_inventory(cfgs['STAXML'])
+    save_f = open(cfgs['CSV2REAL']['save_sta'],'w')
+
+    for net in sta_inv.networks:
+        for sta in net.stations:
+            if sta.longitude > cfgs['MINLON'] and sta.longitude < cfgs['MAXLON'] and sta.latitude > cfgs['MINLAT'] and sta.latitude < cfgs['MAXLAT']:
+                pass
+            else:
+                continue   
+
+            save_f.write('{:.4f} {:.4f} {:} {:} {:} {:.3f}\n'.format(
+                        sta.longitude,sta.latitude,net.code,sta.code,'BHZ',sta.elevation/1000.0))
+
+    save_f.close()
+
+def convert2sec(t, t_ref):
+    """
+    convert UTCDatetime object to seconds
+    Params:
+    t       UTCDateTime     Time to be converted
+    t_ref   UTCDateTime     Reference time
+    """
+    t_utc = UTCDateTime(t)
+    t_ref_utc = UTCDateTime(t_ref)
+    return t_utc - t_ref_utc
+
+def convert_csv_to_real(picks_csv_path,cfgs,job_ID=0):
+    """
+    conver 
+    """
+    file_path = picks_csv_path
+    data = pd.read_csv(file_path)
+    data = data.fillna(-999)
+    nrows, ncols = data.shape
+    if (nrows <= 0):
+        return 0
+    # get reference time
+    reftime = cfgs['CSV2REAL']['ref_time_list'][job_ID]
+    # obtain the name of net and station
+    temp = data.loc[0, 'file_name'].split("_")
+    nnet = temp[1]
+    nsta = temp[0];save_file_name = nnet + '.' + nsta
+    # create the format for the output.
+    fmt = ''
+    # create the list to save the results.
+    itp_arr = []
+    tp_prob_arr = []
+    its_arr = []
+    ts_prob_arr = []
+    for index in range(0, nrows):
+        # the time for P/S (s).
+        itp = data.loc[index, 'p_arrival_time']
+        if itp != -999:
+            tp_prob = float(data.loc[index, 'p_probability'])
+            tp_prob_arr.append(tp_prob)
+            pick_time_P = convert2sec(itp,reftime)
+            itp_arr.append(pick_time_P)
+        its = data.loc[index, 's_arrival_time']
+        if its != -999:
+            ts_prob = float(data.loc[index, 's_probability'])
+            ts_prob_arr.append(ts_prob)
+            pick_time_S = convert2sec(its,reftime)
+            its_arr.append(pick_time_S)
+    # handle and save the results.
+    itp_prob_arr = np.array([itp_arr, tp_prob_arr, np.zeros_like(itp_arr)])
+    itp_prob_arr = itp_prob_arr.T
+    itp_prob_arr = itp_prob_arr[np.argsort(itp_prob_arr[:,0])]
+    its_prob_arr = np.array([its_arr, ts_prob_arr, np.zeros_like(its_arr)]) 
+    its_prob_arr = its_prob_arr.T
+    its_prob_arr = its_prob_arr[np.argsort(its_prob_arr[:,0])]
+    length_P = itp_prob_arr.shape[0]
+    length_S = its_prob_arr.shape[0]
+    for i in range(length_P-1, 0, -1):
+        diff = itp_prob_arr[i][0] - itp_prob_arr[i-1][0]
+        if abs(diff) < 1:
+            if (itp_prob_arr[i][1] < itp_prob_arr[i-1][1]):
+                itp_prob_arr = np.delete(itp_prob_arr, i, axis=0)
+            else:
+                itp_prob_arr = np.delete(itp_prob_arr, i-1, axis=0)
+    for i in range(length_S-1, 0, -1):
+        diff = its_prob_arr[i][0] - its_prob_arr[i-1][0]
+        if abs(diff) < 1:
+            if (its_prob_arr[i][1] < its_prob_arr[i-1][1]):
+                its_prob_arr = np.delete(its_prob_arr, i, axis=0)
+            else:
+                its_prob_arr = np.delete(its_prob_arr, i-1, axis=0)
+    save_prefix = cfgs['CSV2REAL']['save_folder'] + cfgs['CSV2REAL']['save_prefix'][job_ID]
+    if os.path.exists(save_prefix):
+        pass
+    else:
+        os.makedirs(save_prefix)
+    np.savetxt(save_prefix+"%s.P.txt"%(save_file_name), itp_prob_arr, fmt='%.3f %.5f %.8f')
+    np.savetxt(save_prefix+"%s.S.txt"%(save_file_name), its_prob_arr, fmt='%.3f %.5f %.8f')
+    return 1 
+
 def plot_P_branch_responses(cfgs):
     plot_t = np.arange(0,30.01,0.01)
     plt.figure(figsize=(16,12))
@@ -232,8 +328,6 @@ def plot_P_branch_responses(cfgs):
     plt.close()
 
     return
-
-
 
 def sort_STEAD_csv_by_earthquake(csv_file):
     """

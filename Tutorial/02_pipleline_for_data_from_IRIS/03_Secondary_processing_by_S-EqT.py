@@ -10,10 +10,7 @@ import bisect
 from pyproj import Geod
 import sys
 sys.path.append('../../S_EqT_codes/src/EqT_libs')
-from src.S_EqT_model import S_EqT_Model_create
-from src.S_EqT_model import S_EqT_Model_seprate
-from src.S_EqT_model import S_EqT_RSRN_Model
-from src.S_EqT_model import S_EqT_HED_Model
+sys.path.append('../../S_EqT_codes/src/EqT_libs')
 from src.S_EqT_concate_fix_corr import S_EqT_Concate_RSRN_Model
 from src.misc import get_train_list
 import keras.backend
@@ -25,6 +22,30 @@ import os
 # 01 load config file
 # 02 search all picks (aggressive mode or lasy mode)
 # 03 save results
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='01_download_data_from_IRIS')
+    parser.add_argument('--config-file', dest='config_file', 
+                        type=str, help='Configuration file path',default='./default_pipline_config.yaml')
+    args = parser.parse_args()
+    cfgs = yaml.load(open(args.config_file,'r'),Loader=yaml.SafeLoader)
+    
+    # convert eqt results
+    create_real_sta_file(cfgs)
+    convert_csv_to_real(cfgs)
+
+    # build phase dict using EqT results
+    phase_dict = build_phase_dict_from_EqT(cfgs)
+    seqt_model = build_seqt_model(cfgs)
+
+    # start searching
+    for all templates:
+        for all searches:
+            res = seqt_model(template, search)
+            update_phase_dict(phase_dict, res)
+    
+    # save to file
+    save_phase_to_file(phase_dict)
 
 """
 def get_search_station_list(station, station_list, max_distance):
@@ -347,16 +368,7 @@ for sta in station_list:
                     t_update_time = t_update_list[max_arg]
                     bisect.insort(s_eqt_dict[search_sta[1]]['S'], t_update_time)
                     print('{}'.format(t_update_time))
-    """
-    plt.figure(figsize=(6,6))
-    plt.scatter(sta[3],sta[2],color='r')
-    for t_sta in search_list:
-        plt.scatter(t_sta[3],t_sta[2],color='b')
-    plt.xlim([-118.8,-118.0])
-    plt.ylim([34.0,34.8])
-    plt.show()
-    plt.close()
-    """
+
     # open search list csv and hdf5 file
     # for all high P
     #     for all search stations
