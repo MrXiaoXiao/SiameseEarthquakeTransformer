@@ -18,8 +18,8 @@ import time
 from os import listdir
 import os
 import shutil
-from src.EqT_libs.EqT_utils import DataGeneratorPrediction, picker, generate_arrays_from_file
-from src.EqT_libs.EqT_utils import f1, SeqSelfAttention, FeedForward, LayerNormalization
+from EqT_utils import DataGeneratorPrediction, picker, generate_arrays_from_file
+from EqT_utils import f1, SeqSelfAttention, FeedForward, LayerNormalization
 from tqdm import tqdm
 from datetime import datetime, timedelta
 import multiprocessing
@@ -322,9 +322,10 @@ def S_EqT_Concate_RSRN_Model(cfgs):
     loss_weights_cfgs = cfgs['Model']['Loss_weights']
     for l_w in loss_weights_cfgs:
         loss_weights.append(float(l_w))
-
+    """
     model_siamese.compile(loss='binary_crossentropy',
                             optimizer=RAdam(0.0003))
-    model_encoded.summary()
-    model_siamese.summary()
+    """
+    model_siamese.compile(loss='binary_crossentropy',
+                            optimizer='adam')
     return model_encoded, model_siamese, EqT_model

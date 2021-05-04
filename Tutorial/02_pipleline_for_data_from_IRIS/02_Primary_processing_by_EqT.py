@@ -4,6 +4,8 @@ from tensorflow.python.util import deprecation
 deprecation._PRINT_DEPRECATION_WARNINGS = False
 import sys
 sys.path.append('../../S_EqT_codes/src/EqT_libs')
+sys.path.append('../../S_EqT_codes/src')
+from misc import convert_csv_to_real, xml2REAL_sta
 from hdf5_maker import preprocessor
 from predictor import predictor
 from EqT_utils import DataGeneratorPrediction, picker, generate_arrays_from_file
@@ -14,6 +16,7 @@ import yaml
 import os
 from multiprocessing import  Pool
 import argparse
+from pathlib import Path
 
 def convert(cfgs):
     mseed_dir = cfgs['EqT']['mseed_dir']
@@ -69,3 +72,14 @@ if __name__ == '__main__':
             number_of_cpus=4,
             keepPS=True,
             spLimit=60)
+    
+    # convert xml and csv files for S-EqT and REAL
+    xml2REAL_sta(cfgs)
+    det_folder = Path(cfgs['EqT']['det_res'])
+    for outfolder in det_folder.glob('*_outputs'):
+        csv_name = str(outfolder) + '/X_prediction_results.csv'
+        state = convert_csv_to_real(csv_name, cfgs)
+        if state == 0:
+            print('Empty {}'.format(outfolder.name))
+        else:
+            print('Success On {}'.format(outfolder.name))

@@ -3,20 +3,38 @@ import numpy as np
 import h5py
 import matplotlib.pyplot as plt
 from random import shuffle
+from obspy.core import UTCDateTime
+import obspy
+import os
+from pathlib import Path
+from pyproj import Geod
+
+def get_search_station_list(station, station_list, max_distance=999999):
+    GEOD = Geod(ellps='WGS84')
+    # Rough meters/degree calculation
+    M_PER_DEG = (GEOD.inv(0, 0, 0, 1)[2] + GEOD.inv(0, 0, 1, 0)[2]) / 2
+    search_list = list()
+    for t_sta in station_list:
+        # skip self
+        if t_sta[0] == station[0]:
+            continue
+        # calculate distance
+        t_dis = GEOD.inv(t_sta[3],t_sta[2],station[3],station[2])[2]/1000.0
+        if t_dis > max_distance:
+            continue
+        search_list.append(t_sta)
+    return search_list
 
 def xml2REAL_sta(cfgs):
-    sta_inv = obspy.read_inventory(cfgs['STAXML'])
-    save_f = open(cfgs['CSV2REAL']['save_sta'],'w')
-
-    for net in sta_inv.networks:
-        for sta in net.stations:
-            if sta.longitude > cfgs['MINLON'] and sta.longitude < cfgs['MAXLON'] and sta.latitude > cfgs['MINLAT'] and sta.latitude < cfgs['MAXLAT']:
-                pass
-            else:
-                continue   
-
-            save_f.write('{:.4f} {:.4f} {:} {:} {:} {:.3f}\n'.format(
-                        sta.longitude,sta.latitude,net.code,sta.code,'BHZ',sta.elevation/1000.0))
+    sta_inv_folder = Path(cfgs['EqT']['STAXML'])
+    save_f = open(cfgs['REAL']['save_sta'],'w')
+    for sta_folder in sta_inv_folder.glob('*'):
+        for sta_file in sta_folder.glob('*.xml'):
+            sta_inv = obspy.read_inventory(str(sta_file))
+            for net in sta_inv.networks:
+                for sta in net.stations:
+                    save_f.write('{:.4f} {:.4f} {:} {:} {:} {:.3f}\n'.format(
+                                sta.longitude,sta.latitude,net.code,sta.code,'BHZ',sta.elevation/1000.0))
 
     save_f.close()
 
@@ -31,7 +49,7 @@ def convert2sec(t, t_ref):
     t_ref_utc = UTCDateTime(t_ref)
     return t_utc - t_ref_utc
 
-def convert_csv_to_real(picks_csv_path,cfgs,job_ID=0):
+def convert_csv_to_real(picks_csv_path,cfgs):
     """
     conver 
     """
@@ -42,7 +60,7 @@ def convert_csv_to_real(picks_csv_path,cfgs,job_ID=0):
     if (nrows <= 0):
         return 0
     # get reference time
-    reftime = cfgs['CSV2REAL']['ref_time_list'][job_ID]
+    reftime = cfgs['REAL']['ref_time']
     # obtain the name of net and station
     temp = data.loc[0, 'file_name'].split("_")
     nnet = temp[1]
@@ -91,7 +109,7 @@ def convert_csv_to_real(picks_csv_path,cfgs,job_ID=0):
                 its_prob_arr = np.delete(its_prob_arr, i, axis=0)
             else:
                 its_prob_arr = np.delete(its_prob_arr, i-1, axis=0)
-    save_prefix = cfgs['CSV2REAL']['save_folder'] + cfgs['CSV2REAL']['save_prefix'][job_ID]
+    save_prefix = cfgs['EqT']['txt_folder']
     if os.path.exists(save_prefix):
         pass
     else:
@@ -104,7 +122,7 @@ def plot_P_branch_responses(cfgs):
     plot_t = np.arange(0,30.01,0.01)
     plt.figure(figsize=(16,12))
     ax1 = plt.subplot2grid((6,6),(0,4),colspan=2,rowspan=2)
-    plt.title('Simplified EqT diagram',fontsize=14)n
+    plt.title('Simplified EqT diagram',fontsize=14)
     img = mpimg.imread('EqT_Fig5_use.jpg')
     plt.imshow(img,aspect='auto')
     plt.xticks([])

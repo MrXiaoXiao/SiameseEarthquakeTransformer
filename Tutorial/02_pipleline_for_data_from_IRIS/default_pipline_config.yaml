@@ -24,9 +24,26 @@ EqT:
   EQ_threshold: 0.3
   P_threshold: 0.1
   S_threshold: 0.1
+  txt_folder: ./EqTRes/
+  STAXML: 'example_dataxml'
 
 S_EqT:
+  txt_folder: ./SEqTRes/
+  P_branch_config: '../../S_EqT_codes/configs/P_branch.yaml'
+  P_branch_model: '../../models/S_EqT/S_EqT_P_branch.hdf5'
   P_threshold: 0.1
-  P_skip_threshold: 0.5 
+  P_skip_threshold: 0.5
+  keep_time_range_P: 6.0
+
+  S_branch_config: '../../S_EqT_codes/configs/S_branch.yaml'
+  S_branch_model: '../../models/S_EqT/S_EqT_S_branch.hdf5'
   S_threshold: 0.1
   S_skip_threshold: 0.5
+  keep_time_range_S: 12.0
+
+  max_search_distance: 99999
+  exist_range: 20.0
+  
+REAL:
+  ref_time: '2020-08-01'
+  save_sta: 'sta_info_real_format.dat'

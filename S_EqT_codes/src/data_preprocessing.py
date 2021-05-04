@@ -1,4 +1,48 @@
 import numpy as np
+import os
+
+def build_phase_dict_from_EqT(cfgs, wavetype='P'):
+    station_list = list()
+    phase_dict = dict()
+    station_list_file = open(cfgs['REAL']['save_sta'],'r')
+    sta_id = 0
+
+    for line in station_list_file.readlines():
+        if len(line) < 3:
+            continue
+        splits = line.split(' ')
+        sta_name = splits[2]+'.'+splits[3]
+        
+        phase_dict[sta_name] = dict()
+        phase_dict[sta_name]['P'] = list()
+        phase_dict[sta_name]['S'] = list()
+        phase_dict[sta_name]['P_Prob'] = list()
+        phase_dict[sta_name]['S_Prob'] = list()
+        
+        sta_lat = float(splits[1])
+        sta_lon = float(splits[0])
+        
+        station_list.append( (sta_id, sta_name, sta_lat, sta_lon) )
+        sta_id += 1
+    
+    for sta_key in phase_dict.keys():
+        pick_times = list()
+        pick_probs = list()
+        
+        prev_file = cfgs['EqT']['txt_folder'] + '{}.{}.txt'.format(sta_key,wavetype)
+        if os.path.exists(prev_file):
+            f = open(prev_file,'r')
+            for line in f.readlines():
+                if len(line) > 3:
+                    pick_times.append(float(line.split(' ')[0]))
+                    pick_probs.append(float(line.split(' ')[1]))
+            f.close()
+        else:
+            print('Empty' + prev_file)
+
+        phase_dict[sta_key]['{}'.format(wavetype)] = pick_times
+        phase_dict[sta_key]['{}_Prob'.format(wavetype)] = pick_probs
+    return phase_dict, station_list
 
 def normalize_by_std(data_in):
     """
