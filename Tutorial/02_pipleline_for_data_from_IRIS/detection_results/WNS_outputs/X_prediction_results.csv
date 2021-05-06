@@ -1,0 +1,2 @@
+file_name,network,station,instrument_type,station_lat,station_lon,station_elv,event_start_time,event_end_time,detection_probability,detection_uncertainty,p_arrival_time,p_probability,p_uncertainty,p_snr,s_arrival_time,s_probability,s_uncertainty,s_snr
+WNS_CI_HN_2020-08-01T15:54:48.008300Z,CI,WNS ,HN,34.115002,-118.379997,306.1,2020-08-01 15:54:52.038300,2020-08-01 15:54:55.998300,0.62,,2020-08-01 15:54:51.978300,0.58,,9.4,2020-08-01 15:54:54.948300,0.5,,5.1

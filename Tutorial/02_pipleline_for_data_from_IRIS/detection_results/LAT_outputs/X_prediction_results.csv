@@ -1,0 +1,3 @@
+file_name,network,station,instrument_type,station_lat,station_lon,station_elv,event_start_time,event_end_time,detection_probability,detection_uncertainty,p_arrival_time,p_probability,p_uncertainty,p_snr,s_arrival_time,s_probability,s_uncertainty,s_snr
+LAT_CI_EH_2020-08-01T02:15:06.000000Z,CI,LAT ,EH,34.044491,-118.776428,351.0,2020-08-01 02:15:11.950000,2020-08-01 02:15:29.790000,0.96,,2020-08-01 02:15:12.010000,0.82,,21.5,2020-08-01 02:15:24.850000,0.24,,7.4
+LAT_CI_EH_2020-08-01T20:20:06.000000Z,CI,LAT ,EH,34.044491,-118.776428,351.0,2020-08-01 20:20:15.100000,2020-08-01 20:20:28.830000,0.91,,2020-08-01 20:20:15.960000,0.66,,2.9,2020-08-01 20:20:24.700000,0.24,,1.0

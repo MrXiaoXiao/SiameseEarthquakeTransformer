@@ -12,7 +12,7 @@ import sys
 sys.path.append('../../S_EqT_codes/src')
 sys.path.append('../../S_EqT_codes/src/EqT_libs')
 from S_EqT_concate_fix_corr import S_EqT_Concate_RSRN_Model
-from misc import get_train_list, get_search_station_list
+from misc import get_train_list, get_search_station_list, get_closest_value
 from data_preprocessing import build_phase_dict_from_EqT
 import keras.backend as K
 import keras
@@ -93,17 +93,10 @@ if __name__ == '__main__':
                 
             for search_sta in search_list:
                 search_ref_picks = phase_dict[search_sta[1]]['P'] 
-                if len(search_ref_picks) > 1:
-                    ref_key_id = bisect.bisect_left(search_ref_picks,ref_pick_time)
-                    try:
-                        ref_left = np.abs(search_ref_picks[ref_key_id-1] - ref_pick_time)
-                        ref_middle = np.abs(search_ref_picks[ref_key_id] - ref_pick_time)
-                        ref_right = np.abs(search_ref_picks[ref_key_id+1] - ref_pick_time)
-                        if ref_left < cfgs['S-EqT']['exist_range'] or ref_middle < cfgs['S-EqT']['exist_range'] or ref_right < cfgs['S-EqT']['exist_range']:
-                            #print('Skipping {}'.format(search_sta[1]))
-                            continue
-                    except:
-                        pass
+                if len(search_ref_picks) > 0:
+                    closest_t = get_closest_value(search_ref_picks, ref_pick_time)
+                    if np.abs(closest_t - ref_pick_time) < cfgs['S_EqT']['exist_range']:
+                        continue                  
                 else:
                     pass
                 h5py_base_dir_search = search_hdf5_prefix
@@ -253,6 +246,7 @@ if __name__ == '__main__':
         f = open(cur_file,'w')
         arrival_dx = 0
         for arrival in phase_dict[sta_key]['P']:
+            """
             if arrival_dx == 0:
                 pre_arrival = arrival
                 arrival_dx += 1
@@ -261,7 +255,7 @@ if __name__ == '__main__':
                     continue
                 else:
                     pre_arrival = arrival
-                    
+            """
             S_res = '{:.3f} 1.00 0.00000000'.format(arrival)
             f.write(S_res+'\n')
         f.close()
@@ -292,7 +286,7 @@ if __name__ == '__main__':
         print('On {} {} of {} -- S_branch'.format(sta_search_dx,sta, len(station_list)))
         # select stations to search
         h5py_base_dir = search_hdf5_prefix
-        search_list = get_search_station_list(sta, station_list, max_search_distance)
+        search_list = get_search_station_list(sta, station_list)
         seed_csv = detections_prefix + '{}_outputs/X_prediction_results.csv'.format(sta[1][3:])
         seed_csv_file = pd.read_csv(seed_csv)
         for e_time in seed_csv_file['file_name']:
@@ -335,26 +329,23 @@ if __name__ == '__main__':
             for search_sta in search_list:
                 # check if pick exists 
                 #print(search_sta)
-                search_ref_picks = s_eqt_dict[search_sta[1]]['S'] 
-                if len(search_ref_picks) > 1:
+                search_ref_picks = phase_dict[search_sta[1]]['S'] 
+                
+                if len(search_ref_picks) > 0:
                     ref_key_id = bisect.bisect_left(search_ref_picks,ref_pick_time)
-                    try:
-                        ref_left = np.abs(search_ref_picks[ref_key_id-1] - ref_pick_time)
-                        ref_middle = np.abs(search_ref_picks[ref_key_id] - ref_pick_time)
-                        ref_right = np.abs(search_ref_picks[ref_key_id+1] - ref_pick_time)
-                        if ref_left < cfgs['S_EqT']['exist_range'] or ref_middle <  cfgs['S_EqT']['exist_range'] or ref_right <  cfgs['S_EqT']['exist_range']:
-                            print('Skipping {}'.format(search_sta[1]))
-                            continue
-                    except:
-                        pass
+                    closest_t = get_closest_value(search_ref_picks, ref_pick_time)
+                    if np.abs(closest_t - ref_pick_time) < cfgs['S_EqT']['exist_range']:
+                        print('Skipping {} {} {} {}'.format(closest_t, search_sta, ref_pick_time, sta))
+                        continue
                 else:
                     pass
+                
                 h5py_base_dir_search = search_hdf5_prefix
                 search_csvfile = h5py_base_dir_search + '{}.csv'.format(search_sta[1][3:])
                 search_csvfile = pd.read_csv(search_csvfile)            
                 keys = list(search_csvfile['trace_name'])
                 if len(keys) < 2:
-                    print('Keys Error')
+                    #print('Keys Error')
                     continue
                 prefix = keys[0][:-27]
                 keys = [key[-27:] for key in keys]
@@ -363,7 +354,7 @@ if __name__ == '__main__':
                 try:
                     search_keys = [keys[key_id-2],keys[key_id-1],keys[key_id],keys[key_id+1],keys[key_id+2]]
                 except:
-                    print('Search_keys Error')
+                    #print('Search_keys Error')
                     continue
                 # calculate key search range
 
@@ -489,7 +480,7 @@ if __name__ == '__main__':
                     if len(t_update_list) > 0:
                         max_arg = np.argmax(t_update_list_prob)
                         t_update_time = t_update_list[max_arg]
-                        bisect.insort(s_eqt_dict[search_sta[1]]['S'], t_update_time)
+                        bisect.insort(phase_dict[search_sta[1]]['S'], t_update_time)
                         print('Retrieved time: {} {}'.format(t_update_time, search_sta))
     
     for sta_key in phase_dict.keys():
@@ -497,6 +488,7 @@ if __name__ == '__main__':
         f = open(cur_file,'w')
         arrival_dx = 0
         for arrival in phase_dict[sta_key]['S']:
+            """
             if arrival_dx == 0:
                 pre_arrival = arrival
                 arrival_dx += 1
@@ -505,7 +497,8 @@ if __name__ == '__main__':
                     continue
                 else:
                     pre_arrival = arrival
-                    
+            """        
             S_res = '{:.3f} 1.00 0.00000000'.format(arrival)
+            
             f.write(S_res+'\n')
         f.close()

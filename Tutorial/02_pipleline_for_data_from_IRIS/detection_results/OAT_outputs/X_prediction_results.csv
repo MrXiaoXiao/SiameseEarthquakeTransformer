@@ -1,0 +1,2 @@
+file_name,network,station,instrument_type,station_lat,station_lon,station_elv,event_start_time,event_end_time,detection_probability,detection_uncertainty,p_arrival_time,p_probability,p_uncertainty,p_snr,s_arrival_time,s_probability,s_uncertainty,s_snr
+OAT_CI_HH_2020-08-01T06:44:36.008300Z,CI,OAT ,HH,34.34361,-118.61442,1089.0,2020-08-01 06:44:52.858300,2020-08-01 06:44:56.688300,0.68,,2020-08-01 06:44:52.938300,0.42,,6.4,2020-08-01 06:44:55.518300,0.33,,5.6

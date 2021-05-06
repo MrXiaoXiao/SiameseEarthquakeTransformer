@@ -1,0 +1,3 @@
+file_name,network,station,instrument_type,station_lat,station_lon,station_elv,event_start_time,event_end_time,detection_probability,detection_uncertainty,p_arrival_time,p_probability,p_uncertainty,p_snr,s_arrival_time,s_probability,s_uncertainty,s_snr
+VCS_CI_HH_2020-08-01T15:54:48.008300Z,CI,VCS ,HH,34.48372,-118.11781,992.0,2020-08-01 15:54:54.488300,2020-08-01 15:55:01.418300,0.96,,2020-08-01 15:54:54.538300,0.4,,5.0,2020-08-01 15:54:59.398300,0.69,,11.2
+VCS_CI_HH_2020-08-01T15:54:48.008300Z,CI,VCS ,HH,34.48372,-118.11781,992.0,2020-08-01 15:55:19.588300,2020-08-01 15:55:26.168300,0.52,,2020-08-01 15:55:19.518300,0.16,,5.0,2020-08-01 15:55:24.158300,0.16,,11.2

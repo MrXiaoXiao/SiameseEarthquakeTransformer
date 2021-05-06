@@ -1,0 +1,26 @@
+================== Overal Info ==============================
+date of report: 2021-04-30 08:13:22.483213
+input_hdf5: example_data_processed_hdfs//HDH.hdf5
+input_csv: example_data_processed_hdfs//HDH.csv
+input_model: well.hdf5
+output_dir: /mnt/4Tdisk/S-EqT/SiameseEarthquakeTransformer/Tutorial/02_pipleline_for_data_from_IRIS/detection_results/HDH_outputs
+================== Prediction Parameters =======================
+finished the prediction in:  0 hours and 0 minutes and 10.72 seconds 
+detected: 4 events.
+writting_probability_outputs: False
+loss_types: ['binary_crossentropy', 'binary_crossentropy', 'binary_crossentropy']
+loss_weights: [0.02, 0.4, 0.58]
+batch_size: 500
+================== Other Parameters =========================
+normalization_mode: std
+estimate uncertainty: False
+number of Monte Carlo sampling: 5
+detection_threshold: 0.3
+P_threshold: 0.1
+S_threshold: 0.1
+number_of_plots: 0
+use_multiprocessing: True
+gpuid: 0
+gpu_limit: None
+keepPS: True
+spLimit: 60 seconds

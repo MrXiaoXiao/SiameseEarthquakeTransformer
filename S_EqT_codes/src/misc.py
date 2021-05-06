@@ -9,6 +9,9 @@ import os
 from pathlib import Path
 from pyproj import Geod
 
+def get_closest_value(list_in, value_in):
+    return list_in[min(range(len(list_in)), key = lambda i: abs(list_in[i] - value_in))]
+
 def get_search_station_list(station, station_list, max_distance=999999):
     GEOD = Geod(ellps='WGS84')
     # Rough meters/degree calculation

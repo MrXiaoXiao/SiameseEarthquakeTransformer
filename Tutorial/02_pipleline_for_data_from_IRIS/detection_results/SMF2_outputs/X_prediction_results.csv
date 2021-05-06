@@ -1,0 +1,2 @@
+file_name,network,station,instrument_type,station_lat,station_lon,station_elv,event_start_time,event_end_time,detection_probability,detection_uncertainty,p_arrival_time,p_probability,p_uncertainty,p_snr,s_arrival_time,s_probability,s_uncertainty,s_snr
+SMF2_CI_HH_2020-08-01T14:32:54.008300Z,CI,SMF2,HH,34.02201,-118.44627,52.22,2020-08-01 14:32:55.818300,2020-08-01 14:32:56.218300,0.58,,2020-08-01 14:32:55.738300,0.38,,16.4,2020-08-01 14:32:56.018300,0.65,,14.6

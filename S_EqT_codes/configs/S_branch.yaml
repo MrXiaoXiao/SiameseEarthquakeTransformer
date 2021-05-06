@@ -1,6 +1,6 @@
 # Params for training
 Model:
-  EqT_model_path: ./EqT_model.h5
+  EqT_model_path: '../../models/EqT/EqT_model.h5'
   Encoded_layer_name: batch_normalization_17
   Batch_size: 1
   Encode_search_length: 47

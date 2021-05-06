@@ -1,0 +1,2 @@
+file_name,network,station,instrument_type,station_lat,station_lon,station_elv,event_start_time,event_end_time,detection_probability,detection_uncertainty,p_arrival_time,p_probability,p_uncertainty,p_snr,s_arrival_time,s_probability,s_uncertainty,s_snr
+PDE_CI_HH_2020-08-01T09:13:00.008300Z,CI,PDE ,HH,34.44199,-118.58215,328.0,2020-08-01 09:13:22.738300,2020-08-01 09:13:32.308300,0.87,,2020-08-01 09:13:22.898300,0.75,,29.7,2020-08-01 09:13:29.208300,0.27,,1.4

@@ -1,0 +1,2 @@
+file_name,network,station,instrument_type,station_lat,station_lon,station_elv,event_start_time,event_end_time,detection_probability,detection_uncertainty,p_arrival_time,p_probability,p_uncertainty,p_snr,s_arrival_time,s_probability,s_uncertainty,s_snr
+5492_NP_EH_2020-08-01T19:45:48.000000Z,NP,5492,EH,34.20011,-118.36044,223.0,2020-08-01 19:46:07.580000,2020-08-01 19:46:11.640000,0.58,,2020-08-01 19:46:07.590000,0.55,,0.9,2020-08-01 19:46:10.270000,0.13,,4.0
