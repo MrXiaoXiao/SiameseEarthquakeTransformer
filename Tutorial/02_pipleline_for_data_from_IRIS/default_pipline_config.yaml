@@ -47,3 +47,39 @@ S_EqT:
 REAL:
   ref_time: '2020-08-01'
   save_sta: 'sta_info_real_format.dat'
+  year: ["\"2020\""]
+  mon: ["\"08\""]
+  day: ["\"01\""]
+  R: "\"0.2/100/0.03/5/0.01\""
+  G: "\"0.5/100/0.01/5\""
+  V: "\"6.3/3.4/2.0/1.5/0\""
+  S: "\"3/3/10/1/2.0/0/5.0/5.0\""
+  eqt_dir: "./EQTRes/"
+  seqt_dir: "./SEqTRes/"
+  station: "\"./sta_info_real_format.dat\""
+  ttime: "\"./REAL_scripts/tt_db/ttdb.txt\""
+
+HypoInverse:
+  save_sta: './hypoinverse/HYPO_use.dat'
+  save_pha: './hypoinverse/HYPO_use.pha'
+  eqt_event_dict: '/20200801_eqt_dict.npy'
+  seqt_event_dict: '/20200801_seqt_dict.npy'
+  HYPO_key: '20200801'
+
+VIS:
+  VIS_key: '20200801'
+
+  profile_start_lat: 7.0
+  profile_start_lon: 115.75
+  profile_end_lat: 3.75
+  profile_end_lon: 119.0
+
+  MAXDEP: 40.0
+  MINLAT: 3.0
+  MAXLAT: 7.0
+  MINLON: 115.0
+  MAXLON: 119.0
+  MAXERH: 5.0
+  MAXERZ: 5.0
+  MAXAZM: 270
+  profile_range: 35.0
