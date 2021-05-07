@@ -18,6 +18,7 @@ conda install python=3.6 tensorflow-gpu=1.14 keras-gpu=2.3.1 h5py=2.10 matplotli
 conda install -c conda-forge obspy
 pip install keras-rectified-adam
 ```
+Then enter the directories of tutorials and execute corresponding notebooks and scripts.
 ## Citation
 If you use the S-EqT codes in your research, please cite both:
 
