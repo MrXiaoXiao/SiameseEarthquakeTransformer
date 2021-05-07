@@ -53,17 +53,18 @@ REAL:
   R: "\"0.2/100/0.03/5/0.01\""
   G: "\"0.5/100/0.01/5\""
   V: "\"6.3/3.4/2.0/1.5/0\""
-  S: "\"3/3/10/1/2.0/0/5.0/5.0\""
-  eqt_dir: "./EQTRes/"
+  S: "\"3/3/6/1/2.0/0/5.0/5.0\""
+  eqt_dir: "./EqTRes/"
   seqt_dir: "./SEqTRes/"
   station: "\"./sta_info_real_format.dat\""
   ttime: "\"./REAL_scripts/tt_db/ttdb.txt\""
 
 HypoInverse:
-  save_sta: './hypoinverse/HYPO_use.dat'
-  save_pha: './hypoinverse/HYPO_use.pha'
-  eqt_event_dict: '/20200801_eqt_dict.npy'
-  seqt_event_dict: '/20200801_seqt_dict.npy'
+  save_sta: './Hypoinverse_scripts/HYPO_use.dat'
+  save_pha_eqt: './Hypoinverse_scripts/HYPO_use_eqt.pha'
+  save_pha_seqt: './Hypoinverse_scripts/HYPO_use_seqt.pha'
+  eqt_event_dict: './catalogs/eqt_real_e_dict.npy'
+  seqt_event_dict: './catalogs/seqt_real_e_dict.npy'
   HYPO_key: '20200801'
 
 VIS:
