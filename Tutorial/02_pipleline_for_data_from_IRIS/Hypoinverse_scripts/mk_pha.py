@@ -1,3 +1,4 @@
+# modified from https://github.com/YijianZhou/Hypo-Interface-Py
 """ Make input phase file for hypoInverse (COP 3 format)
 """
 from obspy import UTCDateTime

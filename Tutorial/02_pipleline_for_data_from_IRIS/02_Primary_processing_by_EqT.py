@@ -30,7 +30,7 @@ def convert(cfgs):
     return 1
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='01_download_data_from_IRIS')
+    parser = argparse.ArgumentParser(description='02_run_EqT')
     parser.add_argument('--config-file', dest='config_file', 
                         type=str, help='Configuration file path',default='./default_pipline_config.yaml')
     args = parser.parse_args()

@@ -66,21 +66,23 @@ HypoInverse:
   eqt_event_dict: './catalogs/eqt_real_e_dict.npy'
   seqt_event_dict: './catalogs/seqt_real_e_dict.npy'
   HYPO_key: '20200801'
+  lat_sign: 1.0
+  lon_sign: -1.0
 
 VIS:
   VIS_key: '20200801'
 
-  profile_start_lat: 7.0
-  profile_start_lon: 115.75
-  profile_end_lat: 3.75
-  profile_end_lon: 119.0
+  profile_start_lat: 34.5
+  profile_start_lon: -118.8
+  profile_end_lat: 34.05
+  profile_end_lon: -118.0
 
   MAXDEP: 40.0
-  MINLAT: 3.0
-  MAXLAT: 7.0
-  MINLON: 115.0
-  MAXLON: 119.0
+  MINLAT: 34.0
+  MAXLAT: 34.8
+  MINLON: -118.8
+  MAXLON: -118.0
   MAXERH: 5.0
   MAXERZ: 5.0
-  MAXAZM: 270
-  profile_range: 35.0
+  MAXAZM: 180
+  profile_range: 30.0

@@ -1,3 +1,4 @@
+# modified from https://github.com/YijianZhou/Hypo-Interface-Py
 """ Configure file for HypoInverse interface
 """
 import numpy as np

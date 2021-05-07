@@ -1,3 +1,4 @@
+# modified from https://github.com/YijianZhou/Hypo-Interface-Py
 """ Make input station file for hypoInverse
 """
 import config

@@ -1,3 +1,4 @@
+# modified from https://github.com/YijianZhou/Hypo-Interface-Py
 """ Run hypoInverse (main function)
   Usage:
     1. modify template hyp control file (if necessary)

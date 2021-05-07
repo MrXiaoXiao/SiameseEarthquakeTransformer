@@ -28,7 +28,7 @@ import argparse
 # 03 save results
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='01_download_data_from_IRIS')
+    parser = argparse.ArgumentParser(description='03_run_S-EqT')
     parser.add_argument('--config-file', dest='config_file', 
                         type=str, help='Configuration file path',default='./default_pipline_config.yaml')
     args = parser.parse_args()

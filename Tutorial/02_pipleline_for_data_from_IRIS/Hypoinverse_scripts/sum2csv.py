@@ -1,3 +1,4 @@
+# modified from https://github.com/YijianZhou/Hypo-Interface-Py
 """ Format hypoInverse output: sum file to csv files
 """
 import glob, os
