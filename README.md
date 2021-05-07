@@ -47,7 +47,7 @@ Fred W Klein. (2002). Userʼs Guide to HYPOINVERSE-2000, a Fortran Program to So
 
 4. The geometry of the template and searching stations, which may benefit the similarity measurement, is not considered in the S-EqT model.
 
-5. The batch size in training and testing is set to be one for implantation convenience, which limits the training and testing speed.
+5. The batch size in training and testing is set to be one for implementation convenience, which limits the training and testing speed.
 
 ## Bug report
 If you occur any bugs or questions, you can either open a new issue in this repo or send me an e-mail (xiaozhuowei@mails.iggcas.ac.cn). 
