@@ -1,14 +1,17 @@
 # SiameseEarthquakeTransformer
-Tutorials and updated codes for the research paper: ‘Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array.’
-## **The tutorials and codes have been tested on a Linux workstation.** I will constantly update this repo to make them more easy to use and understand.
+Tutorials and updated codes for the research paper: Siamese Earthquake Transformer: A pair-input deep-learning model for earthquake detection and phase picking on a seismic array.
+
+## **The tutorials and codes have been tested on a Linux workstation.** I will constantly update this repo to make them easier to use and understand.
+
 ## Brief Introduction:
 Siamese Earthquake Transformer (S-EqT) is developed based on the Earthquake Transformer (EqT) (Mousavi et al., 2020, Nature Communications) (https://github.com/smousavi05/EQTransformer), which is an excellent method and a strong baseline for earthquake detection and phase picking. The primary purpose of the S-EqT model is to reduce the false-negative rate of the EqT model by leveraging latent information in the pre-trained EqT model and retrieving previously missed phase picks in low SNR seismograms based on their similarities with other confident phase picks in high-dimensional spaces.
 
-The S-EqT codes are for building the pre-trained S-EqT model.
+## Contents of this repo
+1. The S-EqT codes are for building the pre-trained S-EqT model.
 
-The tutorial_01 shows the motivation of the S-EqT model.
+2. The tutorial_01 shows the motivation of the S-EqT model.
 
-The tutorial_02 shows how to use the S-EqT model for building earthquake catalogs from real-world continous seismic data.
+3. The tutorial_02 shows how to use the S-EqT model for building earthquake catalogs from real-world continuous seismic data.
 
 ## Installation
 ```Bash
@@ -38,6 +41,13 @@ HypoInverse for locating earthquakes:
 
 Fred W Klein. (2002). Userʼs Guide to HYPOINVERSE-2000, a Fortran Program to Solve for Earthquake Locations and Magnitudes 4/2002 version. USGS, Open File Report 02-171 Version, 1, 123.
 
+## Advantages of this work
+1. The S-EqT model can reduce the false-negative rate of the EqT model and perform well on earthquake detection and phase picking at the local scale (epicenter distance less than ~200 km>).
+
+2. The increase in seismic phases can improve the earthquake location estimations and benefit the tomography study.
+
+3. The S-EqT model provides a novel approach for phase picking at the network level by cross-correlating seismograms of the same earthquake recorded at other stations in the latent domain. We may use this attribute for solving the phase association task in the future.
+
 ## Limitations of this work
 1. Several questions remain regarding the attributes of feature maps extracted from the EqT model. For example, to what degree the path effect is discarded? How much information do the extracted features carry on event source? 
 
@@ -52,7 +62,7 @@ Fred W Klein. (2002). Userʼs Guide to HYPOINVERSE-2000, a Fortran Program to So
 ## Bug report
 If you occur any bugs or questions, you can either open a new issue in this repo or send me an e-mail (xiaozhuowei@mails.iggcas.ac.cn). 
 
-## Acknowlegments
+## Acknowledgments
 We would like to thank S. Mostafa Mousavi and his colleagues for developing the EqT model (https://github.com/smousavi05/EQTransformer), which is the base of our S-EqT model.
 
 We would like to thank Miao Zhang for developing REAL (https://github.com/Dal-mzhang/REAL).
