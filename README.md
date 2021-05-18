@@ -42,7 +42,7 @@ HypoInverse for locating earthquakes:
 Fred W Klein. (2002). Userʼs Guide to HYPOINVERSE-2000, a Fortran Program to Solve for Earthquake Locations and Magnitudes 4/2002 version. USGS, Open File Report 02-171 Version, 1, 123.
 
 ## Advantages of this work
-1. The S-EqT model can reduce the false-negative rate of the EqT model and perform well on earthquake detection and phase picking at the local scale (epicenter distance less than ~200 km>).
+1. The S-EqT model can reduce the false-negative rate of the EqT model and perform well on earthquake detection and phase picking at the local scale (epicenter distance less than ~200 km).
 
 2. The increase in seismic phases can improve the earthquake location estimations and benefit the tomography study.
 
