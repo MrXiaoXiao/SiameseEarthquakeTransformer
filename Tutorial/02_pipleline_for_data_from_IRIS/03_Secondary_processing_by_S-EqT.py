@@ -1,5 +1,3 @@
-# Will be cleaned and updated after 05.03.2021
-
 import numpy as np
 from pathlib import Path
 import pandas as pd
