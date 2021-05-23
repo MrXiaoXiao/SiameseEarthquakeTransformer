@@ -310,7 +310,7 @@ if __name__ == '__main__':
             coda_end = np.zeros([1,1])
             coda_end[0,0] = float(sst_t/60.0)
             print(e_time)
-            ref_pick_time = obspy.UTCDateTime(e_time[-27:]) + spt[0,0] * 60 - base_time
+            ref_pick_time = obspy.UTCDateTime(e_time[-27:]) + sst[0,0] * 60 - base_time
             print('REF TIME:{}'.format(ref_pick_time))
             seed_h5file = h5py_base_dir + '{}.hdf5'.format(sta[1][3:])
             with h5py.File(seed_h5file,'r') as f:
