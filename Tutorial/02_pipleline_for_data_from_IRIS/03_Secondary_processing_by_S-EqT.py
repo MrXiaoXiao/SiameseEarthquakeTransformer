@@ -220,7 +220,7 @@ if __name__ == '__main__':
                             t_update_time  = siamese_s_time - base_time
                             t_diff_time = siamese_s_time - (obspy.UTCDateTime(e_time[-27:]) + spt[0,0] * 60)
                             
-                            if np.abs(t_diff_time) < 6:
+                            if np.abs(t_diff_time) < cfgs['S_EqT']['keep_time_range_P']:
                                 pass
                             else:
                                 continue
@@ -231,7 +231,13 @@ if __name__ == '__main__':
                     if len(t_update_list) > 0:
                         max_arg = np.argmax(t_update_list_prob)
                         t_update_time = t_update_list[max_arg]
-                        bisect.insort(phase_dict[search_sta[1]]['P'], t_update_time)
+
+                        #bisect.insort(phase_dict[search_sta[1]]['P'], t_update_time)
+                        index_x = bisect.bisect_left(phase_dict[search_sta[1]]['P'],t_update_time)
+                        phase_dict[search_sta[1]]['P'].insert(index_x,t_update_time)
+                        phase_dict[search_sta[1]]['P_Prob'].insert(index_x,np.max(t_update_list_prob))
+
+
                         print('Retrieved time: {} {}'.format(t_update_time, search_sta))
     
     if os.path.exists(cfgs['S_EqT']['txt_folder']):
@@ -254,7 +260,8 @@ if __name__ == '__main__':
                 else:
                     pre_arrival = arrival
             """
-            S_res = '{:.3f} 1.00 0.00000000'.format(arrival)
+            S_res = '{:.3f} {:.2f} 0.00000000'.format(arrival,phase_dict[sta_key]['P_Prob'][arrival_dx])
+            arrival_dx += 1
             f.write(S_res+'\n')
         f.close()
     
@@ -330,7 +337,6 @@ if __name__ == '__main__':
                 search_ref_picks = phase_dict[search_sta[1]]['S'] 
                 
                 if len(search_ref_picks) > 0:
-                    ref_key_id = bisect.bisect_left(search_ref_picks,ref_pick_time)
                     closest_t = get_closest_value(search_ref_picks, ref_pick_time)
                     if np.abs(closest_t - ref_pick_time) < cfgs['S_EqT']['exist_range']:
                         print('Skipping {} {} {} {}'.format(closest_t, search_sta, ref_pick_time, sta))
@@ -350,9 +356,11 @@ if __name__ == '__main__':
                 key_id = bisect.bisect_left(keys,e_time[-27:])
                 
                 try:
-                    search_keys = [keys[key_id-2],keys[key_id-1],keys[key_id],keys[key_id+1],keys[key_id+2]]
+                    if obspy.UTCDateTime(keys[key_id]) - obspy.UTCDateTime(e_time[-27:]) < 10:
+                        search_keys = [keys[key_id-1],keys[key_id],keys[key_id+1]]
+                    else:
+                        search_keys = [keys[key_id-1],keys[key_id],keys[key_id-2]]
                 except:
-                    #print('Search_keys Error')
                     continue
                 # calculate key search range
 
@@ -478,7 +486,11 @@ if __name__ == '__main__':
                     if len(t_update_list) > 0:
                         max_arg = np.argmax(t_update_list_prob)
                         t_update_time = t_update_list[max_arg]
-                        bisect.insort(phase_dict[search_sta[1]]['S'], t_update_time)
+                        index_x = bisect.bisect_left(phase_dict[search_sta[1]]['S'],t_update_time)
+                        
+                        phase_dict[search_sta[1]]['S'].insert(index_x,t_update_time)
+                        phase_dict[search_sta[1]]['S_Prob'].insert(index_x,np.max(t_update_list_prob))
+                        
                         print('Retrieved time: {} {}'.format(t_update_time, search_sta))
     
     for sta_key in phase_dict.keys():
@@ -496,7 +508,7 @@ if __name__ == '__main__':
                 else:
                     pre_arrival = arrival
             """        
-            S_res = '{:.3f} 1.00 0.00000000'.format(arrival)
-            
+            S_res = '{:.3f} {:.2f} 0.00000000'.format(arrival,phase_dict[sta_key]['S_Prob'][arrival_dx])
+            arrival_dx += 1
             f.write(S_res+'\n')
         f.close()
