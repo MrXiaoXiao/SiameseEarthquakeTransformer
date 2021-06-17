@@ -4,7 +4,7 @@ Tutorials and updated codes for the research paper: Siamese Earthquake Transform
 ## **The tutorials and codes have been tested on a Linux workstation.** I will constantly update this repo to make them easier to use and understand.
 
 ## Brief Introduction:
-Siamese Earthquake Transformer (S-EqT) is developed based on the Earthquake Transformer (EqT) (Mousavi et al., 2020, Nature Communications) (https://github.com/smousavi05/EQTransformer), which is an excellent method and a strong baseline for earthquake detection and phase picking. The primary purpose of the S-EqT model is to reduce the false-negative rate of the EqT model by leveraging latent information in the pre-trained EqT model and retrieving previously missed phase picks in low SNR seismograms based on their similarities with other confident phase picks in high-dimensional spaces.
+Siamese Earthquake Transformer (S-EqT) is developed based on the Earthquake Transformer (EqT) (Mousavi et al., 2020, Nature Communications) (https://github.com/smousavi05/EQTransformer), which is an excellent method and a strong baseline for earthquake detection and phase picking. The primary purpose of the S-EqT model is to reduce the false-negative rate of the EqT model by leveraging latent information in the pre-trained EqT model and retrieving previously missed phase picks in low SNR seismograms based on their similarities to other confident phase picks in high-dimensional spaces.
 
 ## Contents of this repo
 1. The S-EqT codes are for building the pre-trained S-EqT model.
