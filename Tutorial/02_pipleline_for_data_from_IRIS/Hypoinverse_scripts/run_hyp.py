@@ -69,9 +69,9 @@ def run_hyp(ztr):
         fout.write(line)
     fout.close()
     # 2. run hypoinverse
-    p = subprocess.Popen(['hyp1.40'], stdin=subprocess.PIPE)
-    s = "@{}".format(fhyp)
-    p.communicate(s.encode())
+    p = subprocess.Popen(['hyp1.40'], stdin=subprocess.PIPE,encoding='utf-8)
+    s = "@{}".format(fhyp) + '\n'
+    p.communicate(s)
 
 # for all ztr
 for ztr in ztr_rng: run_hyp(ztr)
